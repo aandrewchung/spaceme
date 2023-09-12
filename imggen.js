@@ -11,7 +11,7 @@ const openai = new OpenAI({
 async function generateDALLE2Image(prompt) {
     try {
         const response = await openai.images.generate({
-            prompt: "a white siamese cat",
+            prompt: prompt,
             n: 1,
             size: "512x512",
           });
@@ -25,6 +25,6 @@ async function generateDALLE2Image(prompt) {
     }
 }
 
-const prompt = 'Generate an image of a cute cat in space.';
+const prompt = 'Anime manga-style: white hair male with blue eyes opening up the door to his room with shocked expression';
 
 generateDALLE2Image(prompt);

@@ -8,6 +8,7 @@
     "start": "node imggen.js"
   },
   "dependencies": {
+    "bimg": "^0.1.5",
     "dotenv": "^16.3.1",
     "esm": "^3.2.25",
     "openai": "^4.6.0"
