@@ -6,7 +6,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function generateChatGPTResponse(prompt) {
+async function generateStory(prompt) {
   try {
     const chatCompletion = await openai.chat.completions.create({
       model: "gpt-3.5-turbo",
@@ -23,8 +23,5 @@ async function generateChatGPTResponse(prompt) {
   }
 }
 
-// module.exports = generateChatGPTResponse; // Export the function
-
-// Example usage
 const userPrompt = "Write a 50 word story about a girl walking her dog!";
-generateChatGPTResponse(userPrompt);
+generateStory(userPrompt);

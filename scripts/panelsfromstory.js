@@ -13,11 +13,12 @@ continuing their playtime, their bond stronger than ever.
 const generateChatGPTResponse = require('./gptprompt.js'); // Update the path to your file
 
 // Example usage
-const prompt = 'Generate a 50 story about a dragon and a knight';
+const prompt = 'Write a 50 word story about a girl walking her cat';
 
 generateChatGPTResponse(prompt)
   .then(response => {
     // Handle the ChatGPT response here
+    console.log(response);
   })
   .catch(error => {
     console.error('Error:', error);
