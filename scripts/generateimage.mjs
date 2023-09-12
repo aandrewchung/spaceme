@@ -9,7 +9,7 @@ const cleanPrompt = prompt.replace(/[^\w\s]/g, ' ');
 
 const imageFiles = await generateImageFiles(cleanPrompt); // returns an array of 4 image files
 
-// console.log(imageFiles);
+// // console.log(imageFiles);
 
 // Loop through the image files and convert/save each one
 for (const imageFile of imageFiles) {
