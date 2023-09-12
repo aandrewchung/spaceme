@@ -54,6 +54,7 @@ async function generateChatGPTResponse(prompt) {
 
 // Example usage
 const prompt = 'Generate a 50 story about a dragon and a knight';
+
 generateChatGPTResponse(prompt)
   .then(response => {
     // Handle the ChatGPT response here

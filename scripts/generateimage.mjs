@@ -1,5 +1,5 @@
 import { generateImageFiles, generateImagesLinks } from "bimg";
-import { convertAndSaveImage } from './convert.js';
+import { convertAndSaveImage } from './convertimagedata.js';
 
 // const imageLinks = await generateImagesLinks("draw a dog yur"); // returns an array of 4 image links
 const prompt = "Anime manga-style: white hair male with blue eyes opening up the door to his room with shocked expression ";
