@@ -5,9 +5,17 @@
     <title>nospace</title>
     <link rel="stylesheet" media="all" type="text/css" href="../css/styles.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../images/threecircles.png">
+
   </head>
   <body>
     <div class="wrapper">
+      <div class="circle-container">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+      </div>
+      
       <div class="textarea-container">
         <textarea spellcheck="false" placeholder="story. . . " required></textarea>
         <img src="../images/icon2.png" alt="Image" class="right-image">
@@ -37,10 +45,24 @@
       });
 
       function handleEnterKey() {
-        // Add your code to handle the Enter key press here
-        // For example, you can call a function or perform any action
-        // You can also access the textarea content with: textarea.value
-      }
+      // Get references to the wrapper, textarea-container, and image
+      const wrapper = document.querySelector(".wrapper");
+      const textareaContainer = document.querySelector(".textarea-container");
+      const image = document.querySelector(".right-image");
+
+      // Remove the textarea element
+      const textarea = document.querySelector("textarea");
+      textareaContainer.removeChild(textarea);
+
+      // Remove the image
+      textareaContainer.removeChild(image);
+
+      // Adjust the styles of the circle container
+      const circleContainer = document.querySelector(".circle-container");
+      circleContainer.style.padding = "0"; // Remove vertical padding
+}
+
+
     </script>
   </body>
 </html>
