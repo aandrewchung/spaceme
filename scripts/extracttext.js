@@ -7,26 +7,24 @@ function extractTextChunks(text) {
       if (section) {
         chunks.push(section);
       }
-      if (chunks.length === 9) {
+      if (chunks.length === 8) {
         break; // Stop when 9 chunks are collected
       }
     }
   
     // Ensure there are exactly 9 chunks
-    if (chunks.length !== 9) {
+    if (chunks.length !== 8) {
       throw new Error('Text does not contain 9 chunks.');
     }
 
     // Remove the first chunk and discard it
-    chunks.shift();
+    // chunks.shift();
   
     return chunks;
   }
   
   // Define the text here
   const text = `
-  Certainly, here are the detailed descriptions of each of the 8 key points for your story, which can be represented by pictures in your book:
-  
   1. **Sunny Suburban Neighborhood:** In a picturesque suburban neighborhood, the scene is bathed in warm, golden sunlight. Colorful houses with charming architecture line the peaceful streets. Vibrant gardens burst with flowers of every hue, while tall, leafy trees provide pockets of shade. The sky is a brilliant blue canvas with fluffy white clouds.
   
   2. **Sarah Playing in Front Yard:** Sarah, a bright-eyed and rosy-cheeked young girl, stands in her neatly manicured front yard. She wears a playful summer dress and a wide-brimmed hat, casting a playful shadow. Her front yard is adorned with toys like a red ball, a skipping rope, and a teddy bear.
@@ -45,10 +43,11 @@ function extractTextChunks(text) {
   `;
   
   // Extract text chunks
-  const chunks = extractTextChunks(text);
+  // const chunks = extractTextChunks(text);
   
-  // Print each chunk
-  chunks.forEach((chunk, index) => {
-    console.log(`Chunk ${index }: ${chunk}`);
-  });
+  // // Print each chunk
+  // chunks.forEach((chunk, index) => {
+  //   console.log(`Chunk ${index }: ${chunk}`);
+  // });
   
+  module.exports = extractTextChunks; // Export the function

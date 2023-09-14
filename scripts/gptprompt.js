@@ -16,15 +16,15 @@ async function generateChatGPTResponse(prompt) {
     });
     
     const story = chatCompletion.choices[0].message.content;
-    console.log(story);
+    // console.log(story);
     return story;
   } catch (error) {
     console.error('Error generating story:', error);
   }
 }
 
-// module.exports = generateChatGPTResponse; // Export the function
+module.exports = generateChatGPTResponse; // Export the function
 
 // Example usage
-const userPrompt = "Write a 50 word story about a girl walking her dog!";
-generateChatGPTResponse(userPrompt);
+// const userPrompt = "Write a 50 word story about a girl walking her dog!";
+// generateChatGPTResponse(userPrompt);
