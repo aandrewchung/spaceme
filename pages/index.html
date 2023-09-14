@@ -11,10 +11,19 @@
   <body>
     <div class="wrapper">
       <div class="circle-container">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
+        <div class="circle">
+          <div class="generative-bar-left"></div>
+        </div>
+        <div class="circle">
+          <div class="generative-bar-middle-left"></div>
+          <div class="generative-bar-middle-right"></div>
+        </div>
+        <div class="circle">
+          <div class="generative-bar-right"></div>
+        </div>
+        <!-- Add the generative bar with an initial width of 0 -->
       </div>
+      
       
       <div class="textarea-container">
         <textarea spellcheck="false" placeholder="story. . . " required></textarea>
@@ -45,22 +54,53 @@
       });
 
       function handleEnterKey() {
-      // Get references to the wrapper, textarea-container, and image
-      const wrapper = document.querySelector(".wrapper");
-      const textareaContainer = document.querySelector(".textarea-container");
-      const image = document.querySelector(".right-image");
+  // Get references to the generative bars
+  const generativeBarLeft = document.querySelector(".generative-bar-left");
+  const generativeBarRight = document.querySelector(".generative-bar-right");
+  const generativeBarMiddleLeft = document.querySelector(".generative-bar-middle-left");
+  const generativeBarMiddleRight = document.querySelector(".generative-bar-middle-right");
 
-      // Remove the textarea element
-      const textarea = document.querySelector("textarea");
-      textareaContainer.removeChild(textarea);
+  // Calculate the right boundary of the text wrapper (wrapper length minus 50px)
+  const textWrapper = document.querySelector(".textarea-container");
+  const boundary = (textWrapper.clientWidth - 50 ) / 4 + 10 + "px";
+  const transition = "width 1s cubic-bezier(.42,.11,.93,.33)";
 
-      // Remove the image
-      textareaContainer.removeChild(image);
+  // Set the width of the generative bars to the right boundary with a transition
+  generativeBarLeft.style.transition = transition;
+  generativeBarLeft.style.width = boundary;
 
-      // Adjust the styles of the circle container
-      const circleContainer = document.querySelector(".circle-container");
-      circleContainer.style.padding = "0"; // Remove vertical padding
+  generativeBarRight.style.transition = transition;
+  generativeBarRight.style.width = boundary;
+  generativeBarRight.style.right = "0";
+
+  // // Set the width of the generative middle bars to the right boundary with a transition
+  generativeBarMiddleLeft.style.transition = transition;
+  generativeBarMiddleLeft.style.width = boundary;
+
+  generativeBarMiddleRight.style.transition = transition;
+  generativeBarMiddleRight.style.width = boundary;
+  generativeBarMiddleRight.style.right = "0"; // Start from the center
+
+  // Remove the textarea element and image as before
+  const textareaContainer = document.querySelector(".textarea-container");
+  const textarea = document.querySelector("textarea");
+  const image = document.querySelector(".right-image");
+  textareaContainer.removeChild(textarea);
+  textareaContainer.removeChild(image);
+
+  // Adjust the styles of the circle container
+  const circleContainer = document.querySelector(".circle-container");
+  circleContainer.style.padding = "0"; // Remove vertical padding
+
+  // Disable further Enter key presses by removing the event listener
+  textarea.removeEventListener("keydown", handleEnterKey);
 }
+
+
+
+
+
+
 
 
     </script>
