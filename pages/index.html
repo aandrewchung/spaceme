@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>nospace</title>
+    <link rel="stylesheet" media="all" type="text/css" href="../css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="textarea-container">
+        <textarea spellcheck="false" placeholder="story. . . " required></textarea>
+        <img src="../images/icon2.png" alt="Image" class="right-image">
+      </div>
+    </div>
+    <script>
+      const textarea = document.querySelector("textarea");
+      const image = document.querySelector(".right-image");
+
+      textarea.addEventListener("input", function(e) {
+        textarea.style.height = "63px";
+        let scHeight = e.target.scrollHeight;
+        textarea.style.height = `${scHeight}px`;
+
+        if (textarea.value === "") {
+          image.src = "../images/icon2.png"; // Change image to grey
+        } else {
+          image.src = "../images/icon1.png"; // Change image to black
+        }
+      });
+
+      textarea.addEventListener("keydown", function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault(); // Prevent the default Enter key behavior
+          handleEnterKey(); // Call your custom function
+        }
+      });
+
+      function handleEnterKey() {
+        // Add your code to handle the Enter key press here
+        // For example, you can call a function or perform any action
+        // You can also access the textarea content with: textarea.value
+      }
+    </script>
+  </body>
+</html>
