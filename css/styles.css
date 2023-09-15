@@ -44,6 +44,7 @@ body {
   caret-color: #4671EA;
   border: 2px solid #000; /* Change border color to black */
 }
+
 textarea::placeholder {
   color: #b3b3b3;
 }
@@ -60,8 +61,8 @@ textarea::-webkit-scrollbar {
   right: 20px; /* Adjust the right position to add more space */
   top: 50%;
   transform: translateY(-50%);
-  width: 35px; /* Increase the size of the image */
-  height: 35px; /* Increase the size of the image */
+  width: 20px; /* Increase the size of the image */
+  height: 20px; /* Increase the size of the image */
 }
 
 /* ... (your existing CSS) ... */
@@ -83,13 +84,11 @@ textarea::-webkit-scrollbar {
 
 /* Adjust the position of the circles */
 .circle:first-child {
-  margin-left: 25px; /* Move the first child 50px to the right */
+  margin-left: 12.5px;
 }
 
-
-
 .circle:last-child {
-  margin-right: 25px; /* Move the last child 50px to the left */
+  margin-right: 12.5px;
 }
 
 /* Add these styles for the generative bar */

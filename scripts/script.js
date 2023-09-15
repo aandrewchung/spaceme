@@ -7,9 +7,9 @@ textarea.addEventListener("input", function(e) {
     textarea.style.height = `${scHeight}px`;
 
     if (textarea.value === "") {
-        image.src = "../images/icon2.png"; // Change image to grey
+        image.src = "../images/icon4.png"; // Change image to grey
     } else {
-        image.src = "../images/icon1.png"; // Change image to black
+        image.src = "../images/icon3.png"; // Change image to black
     }
 });
 
@@ -20,6 +20,15 @@ textarea.addEventListener("keydown", function(e) {
     }
 });
 
+
+let enterKeyEnabled = true; // Add a flag to track whether Enter key is enabled
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+
 function editGenerativeBars() {
     // Get references to the generative bars
     const generativeBarLeft = document.querySelector(".generative-bar-left");
@@ -29,8 +38,8 @@ function editGenerativeBars() {
 
     // Calculate the boundary of the text wrapper (wrapper length minus 50px)
     const textWrapper = document.querySelector(".textarea-container");
-    const boundary = (textWrapper.clientWidth - 50) / 4 + 10 + "px";
-    const transition = "width 1.25s cubic-bezier(.42,.11,.93,.33)";
+    const boundary = (textWrapper.clientWidth - 50) / 4 + 20 + "px";
+    const transition = "width 2.4s cubic-bezier(.31,2.05,.94,-1.44)";
     // const transition = "width 1s linear";
 
     // Set the width of the generative bars to the right boundary with a transition
@@ -54,44 +63,67 @@ function editGenerativeBars() {
 function shrinkTextarea() {
     const textarea = document.querySelector("textarea");
 
-    // Reduce the padding on both left and right sides by 25 pixels
-    const currentPaddingLeft = parseInt(getComputedStyle(textarea).paddingLeft, 10);
-    const currentPaddingRight = parseInt(getComputedStyle(textarea).paddingRight, 10);
-    
     // Reduce the height by 10 pixels
     const currentHeight = textarea.clientHeight;
-    textarea.style.paddingLeft = currentPaddingLeft - 25 + "px";
-    textarea.style.paddingRight = currentPaddingRight - 25 + "px";
-    textarea.style.height = currentHeight - 30 + "px";
+    const cutHeight = currentHeight - 20;
+    textarea.style.height = 0 + "px";
 
-    // Add a CSS transition to smoothly animate the padding and height change
-    textarea.style.transition = "padding-left 1s, padding-right 1s, height 1s"; // Adjust the duration as needed
+    // Remove the top and bottom padding
+    textarea.style.paddingTop = "0";
+    textarea.style.paddingBottom = "0";
+
+    // Set the border width to 0 to make the border disappear
+    textarea.style.borderWidth = "0";
+
+
+    // Remove the placeholder value
+    textarea.removeAttribute("placeholder");
+
+    // Add a CSS transition to smoothly animate the height change
+    textarea.style.transition = "height 2.4s cubic-bezier(.31,2.05,.94,-1.44), padding-top 2.4s cubic-bezier(.31,2.05,.94,-1.44), padding-bottom 2.4s cubic-bezier(.31,2.05,.94,-1.44), border-width 2.4s cubic-bezier(1,0,1,0)";
+
+    // Remove the image icon
+    const image = document.querySelector(".right-image");
+    if (image) {
+        image.remove();
+    }
+
+    // Remove the text in the textarea
+    textarea.value = "";
 }
 
+let animationInProgress = false; // Initialize the flag
 
-
-
-let enterKeyEnabled = true; // Add a flag to track whether Enter key is enabled
-
-function handleEnterKey() {
-    if (!enterKeyEnabled) {
-        return; // Exit the function if Enter key is not enabled
+async function handleEnterKey() {
+    if (!enterKeyEnabled || animationInProgress) {
+        return; // Exit the function if Enter key is not enabled or animation is in progress
     }
 
     enterKeyEnabled = false; // Disable Enter key
+    animationInProgress = true; // Set the animation flag
 
     editGenerativeBars();
-    // shrinkTextarea();
+    shrinkTextarea();
+
+    // Disable the textarea to prevent further keyboard input
+    const textarea = document.querySelector("textarea");
+    textarea.disabled = true;
+
+    // Add a delay before calling combineBarsTextArea
+    await delay(2400); // Adjust the delay (in milliseconds) as needed
 
     // Remove the textarea element and image as before
     const textareaContainer = document.querySelector(".textarea-container");
-    const textarea = document.querySelector("textarea");
     const image = document.querySelector(".right-image");
 
-    // Adjust the styles of the circle container DOES THIS DO ANYTHING?
+    // Adjust the styles of the circle container (if needed)
     const circleContainer = document.querySelector(".circle-container");
     circleContainer.style.padding = "0"; // Remove vertical padding
 
-    // Disable further Enter key presses by removing the event listener
-    textarea.removeEventListener("keydown", handleEnterKey);
+    // Complete the animation, if any, and remove the flag
+    animationInProgress = false;
+
+    // You can now re-enable keyboard input if needed
+    textarea.disabled = false;
 }
+
