@@ -1,7 +1,7 @@
 import { generateImageFiles, generateImagesLinks } from "bimg";
 import { convertAndSaveImage } from './convertimagedata.js';
 import { extractPanels } from './panelsfromstory.js';
-import { createPdfWithImages } from './imagetopdf.js';
+import { createVerticalPDF } from './imagetopdf.js';
 import fs from 'fs';
 
 
@@ -67,7 +67,7 @@ async function main() {
 
     console.log(imagePaths);
 
-    createPdfWithImages(imagePaths, outputPath)
+    createVerticalPDF(imagePaths, outputPath)
     .then(() => console.log('PDF created successfully'))
     .catch((err) => console.error('Error creating PDF:', err));
 

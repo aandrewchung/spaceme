@@ -80,8 +80,9 @@ function shrinkTextarea() {
     textarea.removeAttribute("placeholder");
 
     // Add a CSS transition to smoothly animate the height change
-    textarea.style.transition = "height 2.4s cubic-bezier(.31,2.05,.94,-1.44), padding-top 2.4s cubic-bezier(.31,2.05,.94,-1.44), padding-bottom 2.4s cubic-bezier(.31,2.05,.94,-1.44), border-width 2.4s cubic-bezier(1,0,1,0)";
-
+    const cubicBezier = "cubic-bezier(.31,2.05,.94,-1.44)";
+    textarea.style.transition = `height 2.4s ${cubicBezier}, padding-top 2.4s ${cubicBezier}, padding-bottom 2.4s ${cubicBezier}`;
+    
     // Remove the image icon
     const image = document.querySelector(".right-image");
     if (image) {
