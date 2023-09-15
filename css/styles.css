@@ -99,10 +99,10 @@ textarea::-webkit-scrollbar {
   height: 20px; /* Adjust the height to match the circle size */
   background-color: #000; /* Set the bar color */
   position: relative; /* Position the bar relatively within the circle-container */
-  border-top-left-radius: 10px; /* Set the top-left border radius to create a curve */
-  border-bottom-left-radius: 10px; /* Set the bottom-left border radius to create a curve */
-  border-top-right-radius: 0px; /* Remove the top-right border radius */
-  border-bottom-right-radius: 0px; /* Remove the bottom-right border radius */
+  border-top-left-radius: 0px; /* Set the top-left border radius to create a curve */
+  border-bottom-left-radius: 0px; /* Set the bottom-left border radius to create a curve */
+  border-top-right-radius: 10px; /* Remove the top-right border radius */
+  border-bottom-right-radius: 10px; /* Remove the bottom-right border radius */
 }
 
 .generative-bar-right {
@@ -110,11 +110,11 @@ textarea::-webkit-scrollbar {
   height: 20px; /* Adjust the height to match the circle size */
   background-color: #000; /* Set the bar color */
   position: relative; /* Position the bar relatively within the circle-container */
-  border-top-right-radius: 10px; /* Set the top-right border radius to create a curve */
-  border-bottom-right-radius: 10px; /* Set the bottom-right border radius to create a curve */
-  border-top-left-radius: 0; /* Remove the top-left border radius */
-  border-bottom-left-radius: 0; /* Remove the bottom-left border radius */
-  left: 100%; /* Start from the right side */
+  border-top-right-radius: 0px; /* Set the top-right border radius to create a curve */
+  border-bottom-right-radius: 0px; /* Set the bottom-right border radius to create a curve */
+  border-top-left-radius: 10px; /* Remove the top-left border radius */
+  border-bottom-left-radius: 10px; /* Remove the bottom-left border radius */
+  left: calc(100% - 10px); /* Start from the right side */
   transform: translateX(-100%); /* Initially, hide the bar to the right */
 }
 
@@ -125,8 +125,8 @@ textarea::-webkit-scrollbar {
   position: absolute; /* Position the bar absolutely within the circle-container */
   border-top-left-radius: 0px; /* Set the top-left border radius to create a curve */
   border-bottom-left-radius: 0px; /* Set the bottom-left border radius to create a curve */
-  border-top-right-radius: 0px; /* Remove the top-right border radius */
-  border-bottom-right-radius: 0px; /* Remove the bottom-right border radius */
+  border-top-right-radius: 10px; /* Remove the top-right border radius */
+  border-bottom-right-radius: 10px; /* Remove the bottom-right border radius */
   left: calc(50% + 0px); /* Start from the center and move 10 pixels to the right */
 }
 
@@ -138,8 +138,8 @@ textarea::-webkit-scrollbar {
   position: relative; /* Position the bar relatively within the circle-container */
   border-top-right-radius: 0px; /* Set the top-right border radius to create a curve */
   border-bottom-right-radius: 0px; /* Set the bottom-right border radius to create a curve */
-  border-top-left-radius: 0; /* Remove the top-left border radius */
-  border-bottom-left-radius: 0; /* Remove the bottom-left border radius */
+  border-top-left-radius: 10px; /* Remove the top-left border radius */
+  border-bottom-left-radius: 10px; /* Remove the bottom-left border radius */
   left: calc(100% - 10px); /* Start from the right side with a 5-pixel offset */
   transform: translateX(-100%); /* Initially, hide the bar to the right */
 
