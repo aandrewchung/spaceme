@@ -13,6 +13,7 @@ textarea.addEventListener("input", function(e) {
     }
 });
 
+
 textarea.addEventListener("keydown", function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault(); // Prevent the default Enter key behavior
@@ -26,8 +27,6 @@ let enterKeyEnabled = true; // Add a flag to track whether Enter key is enabled
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-
 
 function editGenerativeBars() {
     // Get references to the generative bars
@@ -62,6 +61,7 @@ function editGenerativeBars() {
 
 function shrinkTextarea() {
     const textarea = document.querySelector("textarea");
+    const story = textarea.value;
 
     // Reduce the height by 10 pixels
     const currentHeight = textarea.clientHeight;
@@ -91,6 +91,28 @@ function shrinkTextarea() {
 
     // Remove the text in the textarea
     textarea.value = "";
+    return story;
+}
+
+async function dotBars() {
+    const textWrapper = document.querySelector(".textarea-container");
+    const amount = (textWrapper.clientWidth - 50) / 4 - 93.36 + 681.11;
+    console.log(amount);
+    const boundary = amount + "px";
+    const transition = "width 5s cubic-bezier(.31,2.05,.94,-1.44)";
+
+
+    const generativeBar = document.querySelector(".blue-bar-1");
+    generativeBar.style.transition = transition;
+    generativeBar.style.width = boundary;
+    generativeBar.style.left = "10px"; // Start from the right with a 10px offset
+
+
+    // Wait for the transition of the current bar to complete
+    await new Promise((resolve) => {
+    generativeBar.addEventListener("transitionend", resolve);
+});
+
 }
 
 let animationInProgress = false; // Initialize the flag
@@ -104,7 +126,7 @@ async function handleEnterKey() {
     animationInProgress = true; // Set the animation flag
 
     editGenerativeBars();
-    shrinkTextarea();
+    const story = shrinkTextarea();
 
     // Disable the textarea to prevent further keyboard input
     const textarea = document.querySelector("textarea");
@@ -113,21 +135,29 @@ async function handleEnterKey() {
     // Add a delay before calling combineBarsTextArea
     await delay(2400); // Adjust the delay (in milliseconds) as needed
 
-    // Remove the textarea element and image as before
-    const textareaContainer = document.querySelector(".textarea-container");
-    const image = document.querySelector(".right-image");
-
-    // Adjust the styles of the circle container (if needed)
+    // Hide the circle container
     const circleContainer = document.querySelector(".circle-container");
-    circleContainer.style.padding = "0"; // Remove vertical padding
+    circleContainer.style.display = "none";
 
     // Complete the animation, if any, and remove the flag
     animationInProgress = false;
 
-    // You can now re-enable keyboard input if needed
-    textarea.disabled = false;
+    // Move the red-circle-container above the other circle container within the wrapper
+    const redCircleContainer = document.querySelector(".red-circle-container");
+    redCircleContainer.style.visibility = "visible";
 
-    // await delay(1500);
+    const wrapper = document.querySelector(".wrapper");
+    const otherCircleContainer = document.querySelector(".circle-container");
+    
+    // Insert redCircleContainer before otherCircleContainer
+    wrapper.insertBefore(redCircleContainer, otherCircleContainer);
+
+    await dotBars();
+
+    await delay(250);
     // window.location.href = 'comic.html';
 }
 
+
+// script.js
+// export const myValue = "Hello from script.js!";

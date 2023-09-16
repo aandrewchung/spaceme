@@ -72,7 +72,7 @@ async function createHorizontalPDF(imagePaths, outputPath) {
   const pageHeight = 250;
   const imageWidth = (pageWidth / 5) * 1.05; // Scale down to 90%
   const imageHeight = (pageWidth / 5) * 1.05; // Scale down to 90%
-  const borderSize = 2; // Size of the black border
+  const borderSize = 1.2; // Size of the black border
   const horizontalGap = (pageWidth - (4 * imageWidth)) / 5 * 0.5; // Horizontal gap between images
   const verticalGap = (pageHeight - (2 * imageHeight)) / 3; // Vertical gap between images
   const horizontalLeftTitle = pageWidth - (4 * (imageWidth + 2 * borderSize) + 3 * horizontalGap) - verticalGap;
@@ -83,6 +83,7 @@ async function createHorizontalPDF(imagePaths, outputPath) {
     const imagePath = imagePaths[i];
     const imageBytes = await loadImage(imagePath);
     const image = await pdfDoc.embedJpg(imageBytes);
+    
     let row = 0;
     let col = 0;
     // Calculate x and y coordinates based on the grid layout with gaps
@@ -136,7 +137,7 @@ module.exports = { createVerticalPDF , createHorizontalPDF };
 
 const imagePaths = [];
 for (let i = 0; i < 8; i++) {
-  imagePaths.push(`images/${i}.jpeg`);
+  imagePaths.push(`images/panels/${i}.jpeg`);
 }
 
 const verticalPath = 'pdfs/output0.pdf';
@@ -146,6 +147,6 @@ const horizontalPath = 'pdfs/output1.pdf';
 //   .then(() => console.log('Vertical PDF created successfully'))
 //   .catch((err) => console.error('Error creating PDF:', err));
 
-// createHorizontalPDF(imagePaths, horizontalPath)
-//   .then(() => console.log('Horizontal PDF created successfully'))
-//   .catch((err) => console.error('Error creating PDF:', err));
+createHorizontalPDF(imagePaths, horizontalPath)
+  .then(() => console.log('Horizontal PDF created successfully'))
+  .catch((err) => console.error('Error creating PDF:', err));

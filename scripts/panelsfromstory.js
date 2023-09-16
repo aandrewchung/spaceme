@@ -58,7 +58,9 @@ async function extractPanels(story, rawCharacters) {
   var words = rawDescription.split(" ");
   for (var i = 0; i < words.length; i += 1) {
     descriptionString += words[i];
-    if (words[i] in charactersDict) {
+    var wordMod = words[i].replace(/[^A-Za-z0-9]/g, '');
+
+    if (wordMod in charactersDict) {
       descriptionString += ", " + charactersDict[words[i]] + ",";
     } 
     descriptionString += " "
