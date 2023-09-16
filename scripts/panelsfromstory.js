@@ -4,7 +4,7 @@ const extractTextChunks = require('./extracttext.js');
 
 
 async function extractPanels(story) {
-  const firstPrompt = "given this story: " + story + " give me 8 key points from this story where each point will have to be 1 picture in my book. for each point, when specifiying a name, make sure to include its entity. for example sarah, the girl or whiskers, the cat. for every point. don't say anything else but 8 numbered pts";
+  const firstPrompt = "given this story: " + story + " give me 8 key points from this story where each point will have to be 1 picture in my book. for each point, when specifiying a name, make sure to include its entity. for example sarah, the girl or whiskers, the cat. for every point. don't say anything else but 8 numbered pts. imagine ur giving 8 points of a story";
   const originalPoints = await generateChatGPTResponse(firstPrompt);
   console.log(originalPoints);
   console.log("\n")

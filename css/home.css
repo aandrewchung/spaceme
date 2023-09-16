@@ -23,7 +23,7 @@ body {
   /* border-radius: 5px;
   padding: 25px 25px 30px; */
   /* box-shadow: 8px 8px 10px rgba(0,0,0,0.06); */
-  /* border: 1px solid #000; */
+  border: 1px solid #000;
 }
 
 .textarea-container {
@@ -146,4 +146,30 @@ textarea::-webkit-scrollbar {
 
 
 
+/* Add these styles for the red circles */
+.red-circle-container {
+  display: flex;
+  align-items: center;
+  width: 100%; /* Make the container span the entire width */
+  height: 20px; /* Adjust the height of the container */
+  background-color: #000; /* Set the background color of the container to black */
+  box-sizing: border-box; /* Include padding in the container's width */
+  padding-left: 12.5px; /* Add left padding to start from the very left */
+}
 
+.red-circle {
+  width: 20px; /* Adjust the size of the red circles */
+  height: 20px;
+  background-color: #ff0000; /* Set the circle color to red */
+  border-radius: 50%;
+  margin-right: 5px; /* Add margin to space the circles apart */
+  flex-shrink: 0; /* Prevent circles from shrinking */
+}
+
+.red-circle:first-child {
+  margin-left: 0; /* Remove margin for the first circle */
+}
+
+.red-circle:last-child {
+  margin-right: 0; /* Remove margin for the last circle */
+}

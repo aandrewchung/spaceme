@@ -26,7 +26,7 @@ async function convertPdfToImage(inputPdfPath, outputImagePath) {
 }
 
 // Usage example:
-const inputPdfPath = 'C:\\Users\\andro\\Documents\\spaceme\\pdfs\\output0.pdf'; // Correct input PDF file path
-const outputImagePath = 'comics/0.png'; // Specify your desired output image file path
+const inputPdfPath = 'C:\\Users\\andro\\Documents\\spaceme\\pdfs\\output1.pdf'; // Correct input PDF file path
+const outputImagePath = 'images/comics/1.png'; // Specify your desired output image file path
 
 convertPdfToImage(inputPdfPath, outputImagePath);

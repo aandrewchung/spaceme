@@ -1,24 +1,15 @@
 import { generateImageFiles, generateImagesLinks } from "bimg";
 import { convertAndSaveImage } from './convertimagedata.js';
 import { extractPanels } from './panelsfromstory.js';
-import { createVerticalPDF } from './imagetopdf.js';
+import { createVerticalPDF, createHorizontalPDF } from './imagetopdf.js';
 import fs from 'fs';
 
 
 // const imageLinks = await generateImagesLinks("draw a dog yur"); // returns an array of 4 image links
 const prompt = "Anime manga-style: white hair male with blue eyes opening up the door to his room with shocked expression ";
 const story = `
-In a sunny, peaceful suburban neighborhood filled with colorful houses and lush gardens, 
-Sarah, a kind-hearted young girl, was playing in her front yard when she suddenly realized 
-her fluffy orange cat, Whiskers, was missing. Her heart filled with  worry, she embarked 
-on a search throughout the neighborhood, yelling Whiskers' name. Her determined quest 
-led her to find her cat hiding in the trees in a neighbor's garden, frightened by a loud noise. 
-With gentle coaxing, Sarah reunited with her beloved pet, and her cat purred happily 
-in recognition. Cradling her cat in her arms, Sarah comforted him with soft words 
-as they made their way back home. Together, they returned to their front yard, 
-continuing their playtime, their bond stronger than ever.
+As the sun dipped below the horizon, casting long shadows on the soccer field, Alex could feel the weight of the game on his shoulders. With a swift dribble, he maneuvered past defenders, his heart pounding in his chest. In the final seconds of the match, he unleashed a powerful strike that sent the ball crashing into the back of the net. The stadium erupted in a deafening roar, and his teammates swarmed him, jubilant and proud. Together, they had clinched victory, their cheers echoing into the twilight, etching a memory of unity and triumph that would stay with them for a lifetime.
 `;
-
 
 
 async function main() {
@@ -37,8 +28,17 @@ async function main() {
         // Remove special characters and replace with spaces
         const cleanPrompt = prompt.replace(/[^\w\s]/g, ' ');
 
-        const imageFiles = await generateImageFiles(cleanPrompt); // returns an array of 4 image files
+        let imageFiles;
 
+        while (!imageFiles) {
+            try {
+                imageFiles = await generateImageFiles(cleanPrompt); // Try to generate image files
+            } catch (error) {
+                console.error("Error generating image files:", error);
+                // Optionally, you can introduce a delay before trying again to avoid spamming the function
+                await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for 1 second before retrying
+            }
+        }
         // Loop through the image files and convert/save each one
 
         for (const imageFile of imageFiles) {
@@ -54,39 +54,30 @@ async function main() {
         const startIndex = group * 4;
         const randomIndex = Math.floor(Math.random() * 4); // Generate a random index from 0 to 3 within each group
         const randomImageIndex = startIndex + randomIndex;
-        let imagePath = `images/${randomImageIndex}.jpeg`;
+        let imagePath = `images/panels/${randomImageIndex}.jpeg`;
 
         while (!fs.existsSync(imagePath)) {
-            imagePath = `images/${randomImageIndex-1}.jpeg`;
+            imagePath = `images/panels/${randomImageIndex-1}.jpeg`;
         }
 
       imagePaths.push(imagePath);
     }
 
-    const outputPath = 'output.pdf';
-
     console.log(imagePaths);
 
-    createVerticalPDF(imagePaths, outputPath)
-    .then(() => console.log('PDF created successfully'))
-    .catch((err) => console.error('Error creating PDF:', err));
-
-  }
+    const verticalPath = 'pdfs/output0.pdf';
+    const horizontalPath = 'pdfs/output1.pdf';
+    
+    createVerticalPDF(imagePaths, verticalPath)
+      .then(() => console.log('Vertical PDF created successfully'))
+      .catch((err) => console.error('Error creating PDF:', err));
+    
+    createHorizontalPDF(imagePaths, horizontalPath)
+      .then(() => console.log('Horizontal PDF created successfully'))
+      .catch((err) => console.error('Error creating PDF:', err));
+}
   
-
-
-  // Remove special characters and replace with spaces
-    // const cleanPrompt = prompt.replace(/[^\w\s]/g, ' ');
-
-    // const imageFiles = await generateImageFiles(cleanPrompt); // returns an array of 4 image files
-
-    // // Loop through the image files and convert/save each one
-
-    // for (const imageFile of imageFiles) {
-    //     convertAndSaveImage(imageFile, count);
-    //     count++;
-    // }
-  main();
+main();
   
 
 

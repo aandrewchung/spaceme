@@ -7,9 +7,9 @@ textarea.addEventListener("input", function(e) {
     textarea.style.height = `${scHeight}px`;
 
     if (textarea.value === "") {
-        image.src = "../images/icon4.png"; // Change image to grey
+        image.src = "../images/icons/icon4.png"; // Change image to grey
     } else {
-        image.src = "../images/icon3.png"; // Change image to black
+        image.src = "../images/icons/icon3.png"; // Change image to black
     }
 });
 
@@ -126,5 +126,8 @@ async function handleEnterKey() {
 
     // You can now re-enable keyboard input if needed
     textarea.disabled = false;
+
+    // await delay(1500);
+    // window.location.href = 'comic.html';
 }
 

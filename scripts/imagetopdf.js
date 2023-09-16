@@ -142,10 +142,10 @@ for (let i = 0; i < 8; i++) {
 const verticalPath = 'pdfs/output0.pdf';
 const horizontalPath = 'pdfs/output1.pdf';
 
-createVerticalPDF(imagePaths, verticalPath)
-  .then(() => console.log('Vertical PDF created successfully'))
-  .catch((err) => console.error('Error creating PDF:', err));
+// createVerticalPDF(imagePaths, verticalPath)
+//   .then(() => console.log('Vertical PDF created successfully'))
+//   .catch((err) => console.error('Error creating PDF:', err));
 
-createHorizontalPDF(imagePaths, horizontalPath)
-  .then(() => console.log('Horizontal PDF created successfully'))
-  .catch((err) => console.error('Error creating PDF:', err));
+// createHorizontalPDF(imagePaths, horizontalPath)
+//   .then(() => console.log('Horizontal PDF created successfully'))
+//   .catch((err) => console.error('Error creating PDF:', err));
