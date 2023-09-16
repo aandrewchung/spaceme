@@ -147,6 +147,6 @@ const horizontalPath = 'pdfs/output1.pdf';
 //   .then(() => console.log('Vertical PDF created successfully'))
 //   .catch((err) => console.error('Error creating PDF:', err));
 
-createHorizontalPDF(imagePaths, horizontalPath)
-  .then(() => console.log('Horizontal PDF created successfully'))
-  .catch((err) => console.error('Error creating PDF:', err));
+// createHorizontalPDF(imagePaths, horizontalPath)
+//   .then(() => console.log('Horizontal PDF created successfully'))
+//   .catch((err) => console.error('Error creating PDF:', err));

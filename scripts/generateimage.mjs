@@ -5,7 +5,7 @@ import { createVerticalPDF, createHorizontalPDF } from './imagetopdf.js';
 import fs from 'fs';
 
 
-async function main(story, characters) {
+export async function main(story, characters) {
     const temp = await extractPanels(story, characters);
     const panels = temp[0];
     const quotes = temp[1];
@@ -87,4 +87,9 @@ continuing their playtime, their bond stronger than ever.
 `;
 
 const characters = "Sarah is a kind hearted young girl. Whiskers is a fluffy orange cat.";
-main(story, characters);
+
+const story3 = "In the bustling heart of the city, Hugo, Andrew, and Aleks gathered in a cozy co-working space, laptops open and determination in their eyes. They were a trio of tech-savvy friends, united by their passion for coding and innovation. It was the day of the annual citywide hackathon, and they were ready to make their mark. Hugo, with his unruly hair and a knack for creative problem-solving, took charge as the team's visionary. Andrew, the meticulous programmer, brought precision to their ideas, ensuring every line of code was flawless. Aleks, the team's communication wizard, transformed their technical concepts into compelling pitches. Together, they embarked on a 24-hour coding spree, fueled by caffeine and camaraderie. As the hackathon unfolded, their screens filled with lines of code, and their brainstorming sessions ignited with creative sparks. They encountered challenges and setbacks but persevered with unwavering determination. When the clock finally struck zero, they emerged as a formidable team, their project a testament to their friendship and their shared love for hacking innovation."
+
+const chars3 = "Hugo is a tall guy with dark longish curly hair and brown eyes, andrew is a guy with short black hair and brown eyes, and aleks is a girl with a brown bob and blue eyes"
+
+main(story3, chars3);

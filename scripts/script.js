@@ -1,15 +1,42 @@
 const textarea = document.querySelector("textarea");
 const image = document.querySelector(".right-image");
 
+let animationInProgress = false; // Initialize the flag
+let enterCounter = 0;
+const outputs = []
+
+let enterKeyEnabled = true; // Add a flag to track whether Enter key is enabled
+
+
 textarea.addEventListener("input", function(e) {
-    textarea.style.height = "63px";
-    let scHeight = e.target.scrollHeight;
-    textarea.style.height = `${scHeight}px`;
+    let maxCharacterCount = 75
+
+    if (enterCounter != 0) {
+
+        if (enterCounter == 1) {
+            maxCharacterCount = 250;
+        } else {
+            maxCharacterCount = 1000;
+        }
+
+        
+        let scHeight = e.target.scrollHeight;
+        textarea.style.height = `${scHeight}px`;
+    }
+
+    const currentCharacterCount = textarea.value.length;
+    
+    if (currentCharacterCount > maxCharacterCount) {
+        // Truncate the text to the maximum character count
+        textarea.value = textarea.value.slice(0, maxCharacterCount);
+    }
 
     if (textarea.value === "") {
-        image.src = "../images/icons/icon4.png"; // Change image to grey
+        image.src = "../images/icons/icon2.png"; // Change image to grey
+    } else if (enterCounter != 2) {
+        image.src = "../images/icons/icon1.png"; // Change image to black
     } else {
-        image.src = "../images/icons/icon3.png"; // Change image to black
+        image.src = "../images/icons/icon5.png"; // Change image to black
     }
 });
 
@@ -17,12 +44,15 @@ textarea.addEventListener("input", function(e) {
 textarea.addEventListener("keydown", function(e) {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault(); // Prevent the default Enter key behavior
-        handleEnterKey(); // Call your custom function
+        if (textarea.value.trim() !== "") {
+            handleEnterKey(); // Call your custom function
+
+        }
     }
 });
 
 
-let enterKeyEnabled = true; // Add a flag to track whether Enter key is enabled
+
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -115,47 +145,118 @@ async function dotBars() {
 
 }
 
-let animationInProgress = false; // Initialize the flag
+
+
 
 async function handleEnterKey() {
     if (!enterKeyEnabled || animationInProgress) {
         return; // Exit the function if Enter key is not enabled or animation is in progress
     }
 
-    enterKeyEnabled = false; // Disable Enter key
-    animationInProgress = true; // Set the animation flag
+    enterCounter++;
+    console.log(enterCounter);
 
-    editGenerativeBars();
-    const story = shrinkTextarea();
+    // let transition = "height 1.5s cubic-bezier(.31,2.05,.94,-1.44)";
 
-    // Disable the textarea to prevent further keyboard input
-    const textarea = document.querySelector("textarea");
-    textarea.disabled = true;
+    if (enterCounter == 1) {
+        const logoImage = document.querySelector('.logo-image');
 
-    // Add a delay before calling combineBarsTextArea
-    await delay(2400); // Adjust the delay (in milliseconds) as needed
+        // Set the position to top right
+        logoImage.style.top = '65px';
+        logoImage.style.right = '0px';
+        
+        // Set the new width and height
+        logoImage.src = "../images/logos/smallwhite.png"; // Change image to grey
 
-    // Hide the circle container
-    const circleContainer = document.querySelector(".circle-container");
-    circleContainer.style.display = "none";
+        
+        // Add a border
+        logoImage.style.border = '65px solid transparent';
+        
 
-    // Complete the animation, if any, and remove the flag
-    animationInProgress = false;
+        // Select the textarea element by its ID
+        const textarea = document.querySelector("textarea");
+        outputs.push(textarea.value);
 
-    // Move the red-circle-container above the other circle container within the wrapper
-    const redCircleContainer = document.querySelector(".red-circle-container");
-    redCircleContainer.style.visibility = "visible";
+        // Change the placeholder text
+        textarea.placeholder = 'character(s)...';
+        // textarea.style.transition = transition;
+        textarea.style.height = "59px";
+        textarea.value = ''
 
-    const wrapper = document.querySelector(".wrapper");
-    const otherCircleContainer = document.querySelector(".circle-container");
-    
-    // Insert redCircleContainer before otherCircleContainer
-    wrapper.insertBefore(redCircleContainer, otherCircleContainer);
+        // Get a reference to the middle circle and last circle elements
+        const firstCircle = document.querySelector('.circle:first-child');
+        firstCircle.style.visibility = 'visible';
 
-    await dotBars();
+        const image = document.querySelector(".right-image");
+        image.src = "../images/icons/icon2.png"; // Change image to grey
 
-    await delay(250);
+    }
+
+    if (enterCounter == 2) {
+        // Select the textarea element by its ID
+        const textarea = document.querySelector("textarea");
+        outputs.push(textarea.value);
+        // Change the placeholder text
+        textarea.placeholder = 'story. . .';
+        textarea.style.height = "59px";
+        textarea.value = ''
+
+        // Get a reference to the middle circle and last circle elements
+        const middleCircle = document.querySelector('.circle:nth-child(2)');
+        middleCircle.style.visibility = 'visible';
+
+        const image = document.querySelector(".right-image");
+        image.src = "../images/icons/icon6.png"; // Change image to grey
+    }
+
+
+    if (enterCounter == 3) {
+        // Now make the last circle visible
+        const lastCircle = document.querySelector('.circle:last-child');
+        lastCircle.style.visibility = 'visible';
+
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        enterKeyEnabled = false; // Disable Enter key
+        animationInProgress = true; // Set the animation flag
+
+        editGenerativeBars();
+        const story = shrinkTextarea();
+        outputs.push(story);
+        console.log(outputs);
+
+        // Disable the textarea to prevent further keyboard input
+        const textarea = document.querySelector("textarea");
+        textarea.disabled = true;
+
+        // Add a delay before calling combineBarsTextArea
+        await delay(2400); // Adjust the delay (in milliseconds) as needed
+
+        // Hide the circle container
+        const circleContainer = document.querySelector(".circle-container");
+        circleContainer.style.display = "none";
+
+        // Complete the animation, if any, and remove the flag
+        animationInProgress = false;
+
+        // Move the red-circle-container above the other circle container within the wrapper
+        const redCircleContainer = document.querySelector(".red-circle-container");
+        redCircleContainer.style.visibility = "visible";
+
+        const wrapper = document.querySelector(".wrapper");
+        const otherCircleContainer = document.querySelector(".circle-container");
+        
+        // Insert redCircleContainer before otherCircleContainer
+        wrapper.insertBefore(redCircleContainer, otherCircleContainer);
+
+        await dotBars();
+
+        await delay(250);
     // window.location.href = 'comic.html';
+    }
+
+
+    
 }
 
 

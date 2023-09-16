@@ -21,25 +21,28 @@ async function extractPanels(story, rawCharacters) {
 
   // PARSE CHARACTERS STRING DATA INTO DICTIONARY
   var charactersDict = {};
-
+  var lengthOfDescs = 0;
   var lines = parsedCharacters.split("\n");
   for (var i = 0; i < lines.length; i++) {
     var name_data = lines[i].split(": ");
     charactersDict[name_data[0]] = name_data[1];
+    lengthOfDescs += parseInt(name_data[1].length);
   }
   console.log(charactersDict);
   console.log("\n");
   
 
   // GENERATE 8 STORY BULLET POINTS
+  const max_chars = 256 - lengthOfDescs - 40;
   
   const storyPrompt = 
     `You are a helpful bot that takes a story and generates 8 key points. 
-    Choose 8 points that would make a good story for a comic book written for children.
+    Choose 8 points that would make a good story and be easily drawn for a comic book written for children.
     When writing the points, write them as a description of a comic book image. 
     When referring to a character, refer to them by their name every single time. Do NOT use pronouns."
     Don't say anything else but 8 numbered pts and use simple language. 
     Only include information given in the story.
+    DO NOT USE MORE THAN: ` + max_chars + ` NUMBER OF CHARACTERS PER BULLET POINT.
 
     Format example: 
     "1. The girl ran down the street
@@ -47,6 +50,7 @@ async function extractPanels(story, rawCharacters) {
 
     The story is as follows: ` + story;
   
+
   const rawDescription = await generateChatGPTResponse(storyPrompt);
   // console.log(rawDescription);
   // console.log("\n");
@@ -58,10 +62,10 @@ async function extractPanels(story, rawCharacters) {
   var words = rawDescription.split(" ");
   for (var i = 0; i < words.length; i += 1) {
     descriptionString += words[i];
-    var wordMod = words[i].replace(/[^A-Za-z0-9]/g, '');
+    var wordModified = words[i].replace(/[^A-Za-z0-9]/g, '');
 
-    if (wordMod in charactersDict) {
-      descriptionString += ", " + charactersDict[words[i]] + ",";
+    if (wordModified in charactersDict) {
+      descriptionString += " " + charactersDict[wordModified];
     } 
     descriptionString += " "
   }
@@ -107,20 +111,24 @@ async function extractPanels(story, rawCharacters) {
 
   // PARSE THE DIALOGUE INTO AN ARRAY
 
-  var dialogueArray = []
+  var dialogueArray = [];
   
   lines = rawDialogue.split("\n");
   var i = 0;
   for (var i = 0; i < lines.length; i++) {
     const words = lines[i].split(" ");
+    var longestLength = 0;
     if (words[0] == "Dialogue:") {
-      dialogue = [];
+      dialogue = "";
       for (var j = 1; j < words.length; j++) {
         if (words[j] != "") {
-         dialogue.push(words[j]);
+         dialogue += words[j] + " ";
+         if (words[j].length > longestLength) {
+          longestLength = words[j].length;
+         }
         }
       }
-      dialogueArray.push(dialogue);
+      dialogueArray.push([dialogue, longestLength]);
     }
   }
 
@@ -133,7 +141,7 @@ async function extractPanels(story, rawCharacters) {
   //console.log(chunks);
 
   // return chunks;
-  return [descriptionArray, dialogueArray]
+  return [descriptionArray, dialogueArray];
 }
 
 module.exports = { extractPanels };
@@ -154,4 +162,4 @@ continuing their playtime, their bond stronger than ever.
 const superRaw = "Sarah is a kind hearted young girl. Whiskers is a fluffy orange cat.";
 
 
-// extractPanels(story1, superRaw);
+//extractPanels(story1, superRaw);
