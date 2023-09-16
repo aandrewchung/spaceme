@@ -8,12 +8,23 @@ import fs from 'fs';
 // const imageLinks = await generateImagesLinks("draw a dog yur"); // returns an array of 4 image links
 const prompt = "Anime manga-style: white hair male with blue eyes opening up the door to his room with shocked expression ";
 const story = `
-As the sun dipped below the horizon, casting long shadows on the soccer field, Alex could feel the weight of the game on his shoulders. With a swift dribble, he maneuvered past defenders, his heart pounding in his chest. In the final seconds of the match, he unleashed a powerful strike that sent the ball crashing into the back of the net. The stadium erupted in a deafening roar, and his teammates swarmed him, jubilant and proud. Together, they had clinched victory, their cheers echoing into the twilight, etching a memory of unity and triumph that would stay with them for a lifetime.
+In a sunny, peaceful suburban neighborhood filled with colorful houses and lush gardens, 
+Sarah, a kind-hearted young girl, was playing in her front yard when she suddenly realized 
+her fluffy orange kitten, Whiskers, was missing. Her heart filled with worry, she embarked 
+on a search throughout the neighborhood, calling out Whiskers' name. Her determined quest 
+led her to discover Whiskers hiding under a bush in a neighbor's garden, frightened by a loud noise. 
+With gentle coaxing, Sarah reunited with her beloved pet, and Whiskers purred happily 
+in recognition. Cradling Whiskers in her arms, Sarah comforted him with soft words 
+as they made their way back home. Together, they returned to their front yard, 
+continuing their playtime, their bond stronger than ever.
 `;
 
+const characters = "Sarah is a kind hearted young girl. Whiskers is a fluffy orange cat.";
 
 async function main() {
-    const panels = await extractPanels(story);
+    const temp = await extractPanels(story, characters);
+    const panels = temp[0];
+    const quotes = temp[1];
     let count = 0;
 
     // Loop through each panel and create a separate prompt for each
